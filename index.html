@@ -3,207 +3,378 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Audax Ireland - Cycling Challenge Registration</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css">
+    <title>Cycling Challenge Registration</title>
+    
+    <!-- PWA Meta Tags -->
+    <meta name="theme-color" content="#3B82F6">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="Cycling Challenge">
+    
+    <!-- PWA Manifest -->
     <link rel="manifest" href="manifest.json">
-    <meta name="theme-color" content="#4b5563">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Custom Styles -->
+    <style>
+        .hidden { display: none !important; }
+        .fade-in { 
+            animation: fadeIn 0.5s ease-in;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        /* Loading spinner */
+        .spinner {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #3B82F6;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
 </head>
-<body class="bg-gray-100 min-h-screen flex items-center justify-center p-4">
-    <div class="bg-white p-8 rounded-xl shadow-2xl w-full max-w-lg">
-        <div id="registration-form" class="space-y-6">
-            <h2 class="text-3xl font-bold text-gray-800 text-center mb-6">Challenge Registration</h2>
-            <form id="challenge-form" class="space-y-6">
-                <div>
-                    <label class="block text-sm font-medium text-gray-700">Select Your Challenge</label>
-                    <div class="mt-2 space-y-2">
-                        <label class="flex items-center">
-                            <input type="radio" name="challenge" value="12 x 100km" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300">
-                            <span class="ml-2 text-sm text-gray-700">12 x 100km (12-Month Challenge)</span>
+<body class="bg-gradient-to-br from-blue-50 to-indigo-100 min-h-screen">
+    <!-- Header -->
+    <header class="bg-white shadow-lg rounded-b-xl mx-4 mt-4 p-6">
+        <div class="text-center">
+            <h1 class="text-3xl font-bold text-gray-800 mb-2">🚴‍♂️ Cycling Challenge</h1>
+            <p class="text-gray-600">Register for your cycling adventure!</p>
+        </div>
+    </header>
+
+    <!-- Main Container -->
+    <main class="container mx-auto px-4 py-8 max-w-2xl">
+        
+        <!-- Part 1: Registration Form -->
+        <div id="registrationForm" class="bg-white rounded-xl shadow-lg p-8 mb-6">
+            <div class="flex items-center mb-6">
+                <div class="bg-blue-500 text-white rounded-full w-8 h-8 flex items-center justify-center font-bold mr-3">1</div>
+                <h2 class="text-2xl font-bold text-gray-800">Registration</h2>
+            </div>
+
+            <form id="regForm">
+                <!-- Challenge Selection -->
+                <div class="mb-6">
+                    <label class="block text-lg font-semibold text-gray-700 mb-3">Choose Your Challenge:</label>
+                    <div class="space-y-2">
+                        <label class="flex items-center p-3 rounded-lg border hover:bg-gray-50 cursor-pointer">
+                            <input type="radio" name="challenge" value="12-Month Challenge (12 x 100km)" class="mr-3 text-blue-500">
+                            <span class="font-medium">12-Month Challenge (12 x 100km)</span>
                         </label>
-                        <label class="flex items-center">
-                            <input type="radio" name="challenge" value="12 x 200km" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300">
-                            <span class="ml-2 text-sm text-gray-700">12 x 200km (12-Month Challenge)</span>
+                        <label class="flex items-center p-3 rounded-lg border hover:bg-gray-50 cursor-pointer">
+                            <input type="radio" name="challenge" value="12-Month Challenge (12 x 200km)" class="mr-3 text-blue-500">
+                            <span class="font-medium">12-Month Challenge (12 x 200km)</span>
                         </label>
-                        <label class="flex items-center">
-                            <input type="radio" name="challenge" value="1 x 100km" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300">
-                            <span class="ml-2 text-sm text-gray-700">1 x 100km (One-Time Spin)</span>
+                        <label class="flex items-center p-3 rounded-lg border hover:bg-gray-50 cursor-pointer">
+                            <input type="radio" name="challenge" value="One-Time Spin (100km)" class="mr-3 text-blue-500" onchange="showMedalOption()">
+                            <span class="font-medium">One-Time Spin (100km)</span>
                         </label>
-                        <label class="flex items-center">
-                            <input type="radio" name="challenge" value="1 x 200km" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300">
-                            <span class="ml-2 text-sm text-gray-700">1 x 200km (One-Time Spin)</span>
+                        <label class="flex items-center p-3 rounded-lg border hover:bg-gray-50 cursor-pointer">
+                            <input type="radio" name="challenge" value="One-Time Spin (200km)" class="mr-3 text-blue-500" onchange="showMedalOption()">
+                            <span class="font-medium">One-Time Spin (200km)</span>
                         </label>
                     </div>
                 </div>
 
-                <div id="medal-option" class="hidden">
-                    <label class="block text-sm font-medium text-gray-700">Medal Option</label>
-                    <div class="mt-2 space-y-2">
-                        <label class="flex items-center">
-                            <input type="radio" name="medal" value="Yes" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300">
-                            <span class="ml-2 text-sm text-gray-700">I would like to receive a medal.</span>
+                <!-- Medal Option (hidden by default) -->
+                <div id="medalOption" class="mb-6 hidden">
+                    <label class="block text-lg font-semibold text-gray-700 mb-3">Medal Option:</label>
+                    <div class="space-y-2">
+                        <label class="flex items-center p-3 rounded-lg border hover:bg-gray-50 cursor-pointer">
+                            <input type="radio" name="medal" value="yes" class="mr-3 text-blue-500">
+                            <span class="font-medium">🏅 I would like to receive a medal</span>
                         </label>
-                        <label class="flex items-center">
-                            <input type="radio" name="medal" value="No" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300">
-                            <span class="ml-2 text-sm text-gray-700">I do not wish to receive a medal.</span>
+                        <label class="flex items-center p-3 rounded-lg border hover:bg-gray-50 cursor-pointer">
+                            <input type="radio" name="medal" value="no" class="mr-3 text-blue-500">
+                            <span class="font-medium">❌ I do not wish to receive a medal</span>
                         </label>
                     </div>
                 </div>
 
-                <div>
-                    <label for="fullName" class="block text-sm font-medium text-gray-700">Full Name</label>
-                    <input type="text" id="fullName" name="fullName" required class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm p-2">
+                <!-- Personal Information -->
+                <div class="mb-6">
+                    <h3 class="text-lg font-semibold text-gray-700 mb-3">Personal Information</h3>
+                    <div class="space-y-4">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Full Name *</label>
+                            <input type="text" name="fullName" required 
+                                   class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Audax Ireland Club Number (Optional)</label>
+                            <input type="text" name="clubNumber" 
+                                   class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                        </div>
+                    </div>
                 </div>
 
-                <div>
-                    <label for="clubNumber" class="block text-sm font-medium text-gray-700">Audax Ireland Club Number (Optional)</label>
-                    <input type="text" id="clubNumber" name="clubNumber" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm p-2">
+                <!-- Cycle Details -->
+                <div class="mb-6">
+                    <h3 class="text-lg font-semibold text-gray-700 mb-3">Cycle Details</h3>
+                    <div class="space-y-4">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Date of Cycle *</label>
+                            <input type="date" name="cycleDate" required 
+                                   class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Starting Point *</label>
+                            <input type="text" name="startingPoint" required 
+                                   class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Ending Point *</label>
+                            <input type="text" name="endingPoint" required 
+                                   class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                        </div>
+                    </div>
                 </div>
 
-                <div>
-                    <label for="cycleDate" class="block text-sm font-medium text-gray-700">Date of Cycle</label>
-                    <input type="date" id="cycleDate" name="cycleDate" required class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm p-2">
-                </div>
-
-                <div>
-                    <label for="startPoint" class="block text-sm font-medium text-gray-700">Starting Point</label>
-                    <input type="text" id="startPoint" name="startPoint" required class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm p-2">
-                </div>
-
-                <div>
-                    <label for="endPoint" class="block text-sm font-medium text-gray-700">Ending Point</label>
-                    <input type="text" id="endPoint" name="endPoint" required class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm p-2">
-                </div>
-
-                <button type="submit" class="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-                    Register & Continue
+                <!-- Submit Button -->
+                <button type="submit" id="registerBtn" 
+                        class="w-full bg-blue-500 hover:bg-blue-600 text-white font-bold py-3 px-6 rounded-lg transition duration-300 flex items-center justify-center">
+                    <span id="registerBtnText">Register & Continue</span>
+                    <div id="registerSpinner" class="spinner ml-3 hidden"></div>
                 </button>
             </form>
         </div>
 
-        <div id="proof-form-section" class="hidden">
-            <h2 class="text-3xl font-bold text-gray-800 text-center mb-6">Upload Proof of Completion</h2>
-            <p class="text-center text-sm text-gray-600 mb-6">Your registration is complete. Please upload your proof below. All files will be linked to your record.</p>
-            <form id="proof-form" class="space-y-6" enctype="multipart/form-data">
-                <div>
-                    <label for="control1" class="block text-sm font-medium text-gray-700">Control 1 Photo</label>
-                    <input type="file" id="control1" name="control1" accept="image/*" class="mt-1 block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-gray-200 file:text-gray-700 hover:file:bg-gray-300">
-                </div>
-                <div>
-                    <label for="control2" class="block text-sm font-medium text-gray-700">Control 2 Photo</label>
-                    <input type="file" id="control2" name="control2" accept="image/*" class="mt-1 block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-gray-200 file:text-gray-700 hover:file:bg-gray-300">
-                </div>
-                <div>
-                    <label for="control3" class="block text-sm font-medium text-gray-700">Control 3 Photo</label>
-                    <input type="file" id="control3" name="control3" accept="image/*" class="mt-1 block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-gray-200 file:text-gray-700 hover:file:bg-gray-300">
-                </div>
-                <div>
-                    <label for="control4" class="block text-sm font-medium text-gray-700">Control 4 Photo</label>
-                    <input type="file" id="control4" name="control4" accept="image/*" class="mt-1 block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-gray-200 file:text-gray-700 hover:file:bg-gray-300">
-                </div>
-                <div>
-                    <label for="gpxFile" class="block text-sm font-medium text-gray-700">GPX File</label>
-                    <input type="file" id="gpxFile" name="gpxFile" accept=".gpx" class="mt-1 block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-gray-200 file:text-gray-700 hover:file:bg-gray-300">
-                </div>
-                <div>
-                    <label for="stravaLink" class="block text-sm font-medium text-gray-700">Strava Link</label>
-                    <input type="url" id="stravaLink" name="stravaLink" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm p-2">
+        <!-- Part 2: Proof of Completion (Initially Hidden) -->
+        <div id="proofForm" class="bg-white rounded-xl shadow-lg p-8 hidden fade-in">
+            <div class="flex items-center mb-6">
+                <div class="bg-green-500 text-white rounded-full w-8 h-8 flex items-center justify-center font-bold mr-3">2</div>
+                <h2 class="text-2xl font-bold text-gray-800">Proof of Completion</h2>
+            </div>
+
+            <div class="bg-green-50 border border-green-200 rounded-lg p-4 mb-6">
+                <p class="text-green-800">✅ Registration successful! Now upload your proof of completion.</p>
+            </div>
+
+            <form id="proofSubmissionForm">
+                <!-- Control Point Photos -->
+                <div class="mb-6">
+                    <h3 class="text-lg font-semibold text-gray-700 mb-3">📸 Control Point Photos</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Control 1 Photo</label>
+                            <input type="file" name="control1" accept=".jpg,.jpeg,.png" 
+                                   class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Control 2 Photo</label>
+                            <input type="file" name="control2" accept=".jpg,.jpeg,.png" 
+                                   class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Control 3 Photo</label>
+                            <input type="file" name="control3" accept=".jpg,.jpeg,.png" 
+                                   class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Control 4 Photo</label>
+                            <input type="file" name="control4" accept=".jpg,.jpeg,.png" 
+                                   class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
+                        </div>
+                    </div>
                 </div>
 
-                <button type="submit" class="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500">
-                    Submit Proof
+                <!-- GPX File -->
+                <div class="mb-6">
+                    <h3 class="text-lg font-semibold text-gray-700 mb-3">📍 GPS Track</h3>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">GPX File</label>
+                    <input type="file" name="gpxFile" accept=".gpx" 
+                           class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
+                </div>
+
+                <!-- Strava Link -->
+                <div class="mb-6">
+                    <h3 class="text-lg font-semibold text-gray-700 mb-3">🔗 Strava Activity</h3>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Strava Link (Optional)</label>
+                    <input type="url" name="stravaLink" placeholder="https://www.strava.com/activities/..." 
+                           class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
+                </div>
+
+                <!-- Submit Proof Button -->
+                <button type="submit" id="proofBtn"
+                        class="w-full bg-green-500 hover:bg-green-600 text-white font-bold py-3 px-6 rounded-lg transition duration-300 flex items-center justify-center">
+                    <span id="proofBtnText">Submit Proof</span>
+                    <div id="proofSpinner" class="spinner ml-3 hidden"></div>
                 </button>
             </form>
         </div>
 
-        <div id="success-message" class="hidden text-center text-green-700 font-bold mt-4">
-            Thank you! Your submission has been received.
+        <!-- Success Message -->
+        <div id="successMessage" class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded-lg hidden">
+            <div class="text-center">
+                <h3 class="text-lg font-bold mb-2">🎉 Submission Complete!</h3>
+                <p>Thank you for participating in the cycling challenge. Your registration and proof have been recorded.</p>
+                <button onclick="resetForm()" class="mt-4 bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg">
+                    Submit Another Entry
+                </button>
+            </div>
         </div>
-        <div id="error-message" class="hidden text-center text-red-700 font-bold mt-4">
-            An error occurred. Please try again.
-        </div>
-    </div>
+    </main>
+
     <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            if ('serviceWorker' in navigator) {
-                navigator.serviceWorker.register('/sw.js', { scope: '/' })
-                .then(registration => console.log('Service Worker Registered'))
-                .catch(error => console.log('Service Worker Registration Failed:', error));
+        // *** IMPORTANT: Replace this with your Google Apps Script URL ***
+        const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/YOUR_SCRIPT_ID/exec';
+        
+        let registrationId = null;
+
+        // Show medal option for one-time spins
+        function showMedalOption() {
+            const challengeValue = document.querySelector('input[name="challenge"]:checked')?.value;
+            const medalOption = document.getElementById('medalOption');
+            
+            if (challengeValue && challengeValue.includes('One-Time Spin')) {
+                medalOption.classList.remove('hidden');
+            } else {
+                medalOption.classList.add('hidden');
+            }
+        }
+
+        // Add event listeners to all challenge radio buttons
+        document.addEventListener('DOMContentLoaded', function() {
+            const challengeInputs = document.querySelectorAll('input[name="challenge"]');
+            challengeInputs.forEach(input => {
+                input.addEventListener('change', showMedalOption);
+            });
+        });
+
+        // Handle registration form submission
+        document.getElementById('regForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const registerBtn = document.getElementById('registerBtn');
+            const registerBtnText = document.getElementById('registerBtnText');
+            const registerSpinner = document.getElementById('registerSpinner');
+            
+            // Show loading state
+            registerBtnText.textContent = 'Registering...';
+            registerSpinner.classList.remove('hidden');
+            registerBtn.disabled = true;
+            
+            // Collect form data
+            const formData = new FormData(this);
+            const data = Object.fromEntries(formData.entries());
+            data.timestamp = new Date().toISOString();
+            data.type = 'registration';
+            
+            try {
+                const response = await fetch(GOOGLE_SCRIPT_URL, {
+                    method: 'POST',
+                    body: JSON.stringify(data),
+                    headers: {
+                        'Content-Type': 'application/json',
+                    }
+                });
+                
+                const result = await response.json();
+                
+                if (result.success) {
+                    registrationId = result.registrationId || Date.now();
+                    
+                    // Hide registration form and show proof form
+                    document.getElementById('registrationForm').style.display = 'none';
+                    document.getElementById('proofForm').classList.remove('hidden');
+                    
+                    // Scroll to proof form
+                    document.getElementById('proofForm').scrollIntoView({ behavior: 'smooth' });
+                } else {
+                    throw new Error(result.error || 'Registration failed');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                alert('Registration failed. Please try again. Error: ' + error.message);
+            } finally {
+                // Reset button state
+                registerBtnText.textContent = 'Register & Continue';
+                registerSpinner.classList.add('hidden');
+                registerBtn.disabled = false;
             }
         });
 
-        const SCRIPT_URL = 'YOUR_GOOGLE_APPS_SCRIPT_URL_HERE'; // *** IMPORTANT: PASTE YOUR DEPLOYED URL HERE ***
-        const challengeForm = document.getElementById('challenge-form');
-        const proofForm = document.getElementById('proof-form');
-        const registrationSection = document.getElementById('registration-form');
-        const proofSection = document.getElementById('proof-form-section');
-        const successMessage = document.getElementById('success-message');
-        const errorMessage = document.getElementById('error-message');
-        const medalOption = document.getElementById('medal-option');
-        let recordId = '';
-
-        document.querySelectorAll('input[name="challenge"]').forEach(radio => {
-            radio.addEventListener('change', (event) => {
-                const value = event.target.value;
-                if (value.includes('One-Time Spin')) {
-                    medalOption.classList.remove('hidden');
-                } else {
-                    medalOption.classList.add('hidden');
-                }
-            });
-        });
-
-        challengeForm.addEventListener('submit', (e) => {
+        // Handle proof submission
+        document.getElementById('proofSubmissionForm').addEventListener('submit', async function(e) {
             e.preventDefault();
-            const formData = new FormData(challengeForm);
             
-            fetch(SCRIPT_URL, {
-                method: 'POST',
-                body: formData
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.status === 'success') {
-                    recordId = data.recordId;
-                    registrationSection.classList.add('hidden');
-                    proofSection.classList.remove('hidden');
+            const proofBtn = document.getElementById('proofBtn');
+            const proofBtnText = document.getElementById('proofBtnText');
+            const proofSpinner = document.getElementById('proofSpinner');
+            
+            // Show loading state
+            proofBtnText.textContent = 'Uploading...';
+            proofSpinner.classList.remove('hidden');
+            proofBtn.disabled = true;
+            
+            try {
+                const formData = new FormData(this);
+                formData.append('type', 'proof');
+                formData.append('registrationId', registrationId);
+                formData.append('timestamp', new Date().toISOString());
+                
+                const response = await fetch(GOOGLE_SCRIPT_URL, {
+                    method: 'POST',
+                    body: formData
+                });
+                
+                const result = await response.json();
+                
+                if (result.success) {
+                    // Hide proof form and show success message
+                    document.getElementById('proofForm').style.display = 'none';
+                    document.getElementById('successMessage').classList.remove('hidden');
+                    document.getElementById('successMessage').scrollIntoView({ behavior: 'smooth' });
                 } else {
-                    errorMessage.textContent = 'Registration failed. ' + data.message;
-                    errorMessage.classList.remove('hidden');
+                    throw new Error(result.error || 'Proof submission failed');
                 }
-            })
-            .catch(error => {
-                errorMessage.textContent = 'Error: Could not connect to the server.';
-                errorMessage.classList.remove('hidden');
+            } catch (error) {
                 console.error('Error:', error);
-            });
+                alert('Proof submission failed. Please try again. Error: ' + error.message);
+            } finally {
+                // Reset button state
+                proofBtnText.textContent = 'Submit Proof';
+                proofSpinner.classList.add('hidden');
+                proofBtn.disabled = false;
+            }
         });
 
-        proofForm.addEventListener('submit', (e) => {
-            e.preventDefault();
-            const formData = new FormData(proofForm);
-            formData.append('recordId', recordId); // Attach the unique ID from the first submission
-            formData.append('type', 'proof'); // Tell the script this is a proof upload
+        // Reset form for new submission
+        function resetForm() {
+            document.getElementById('regForm').reset();
+            document.getElementById('proofSubmissionForm').reset();
+            document.getElementById('registrationForm').style.display = 'block';
+            document.getElementById('proofForm').classList.add('hidden');
+            document.getElementById('successMessage').classList.add('hidden');
+            document.getElementById('medalOption').classList.add('hidden');
+            registrationId = null;
+            
+            // Scroll to top
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
 
-            fetch(SCRIPT_URL, {
-                method: 'POST',
-                body: formData
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.status === 'success') {
-                    proofSection.classList.add('hidden');
-                    successMessage.classList.remove('hidden');
-                } else {
-                    errorMessage.textContent = 'Proof upload failed. ' + data.message;
-                    errorMessage.classList.remove('hidden');
-                }
-            })
-            .catch(error => {
-                errorMessage.textContent = 'Error: Could not upload proof.';
-                errorMessage.classList.remove('hidden');
-                console.error('Error:', error);
+        // PWA Service Worker Registration
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', function() {
+                navigator.serviceWorker.register('sw.js')
+                    .then(function(registration) {
+                        console.log('ServiceWorker registration successful');
+                    })
+                    .catch(function(err) {
+                        console.log('ServiceWorker registration failed: ', err);
+                    });
             });
-        });
+        }
     </script>
 </body>
 </html>
