@@ -1,0 +1,22 @@
+{
+  "name": "Cycling Challenge Registration",
+  "short_name": "Cycling App",
+  "description": "Register for cycling challenges and submit proof of completion",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#3B82F6",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTkyIiBoZWlnaHQ9IjE5MiIgdmlld0JveD0iMCAwIDE5MiAxOTIiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSIxOTIiIGhlaWdodD0iMTkyIiByeD0iMjQiIGZpbGw9IiMzQjgyRjYiLz4KPHBhdGggZD0iTTk2IDQ4Qzc2LjIgNDggNjAgNjQuMiA2MCA4NFY5NkM2MCA5Ni42IDYwLjQgOTcgNjEgOTdIOTFWMTMxSDEwMVYxMDdIMTMxQzEzMS42IDEwNyAxMzIgMTA2LjYgMTMyIDEwNlY4NEMxMzIgNjQuMiAxMTUuOCA0OCA5NiA0OFoiIGZpbGw9IndoaXRlIi8+CjxjaXJjbGUgY3g9Ijc2IiBjeT0iMTM2IiByPSIyMCIgZmlsbD0id2hpdGUiLz4KPGNpcmNsZSBjeD0iMTE2IiBjeT0iMTM2IiByPSIyMCIgZmlsbD0id2hpdGUiLz4KPC9zdmc+",
+      "sizes": "192x192",
+      "type": "image/svg+xml"
+    },
+    {
+      "src": "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNTEyIiBoZWlnaHQ9IjUxMiIgdmlld0JveD0iMCAwIDUxMiA1MTIiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSI1MTIiIGhlaWdodD0iNTEyIiByeD0iNjQiIGZpbGw9IiMzQjgyRjYiLz4KPHBhdGggZD0iTTI1NiAxMjhDMjAzLjIgMTI4IDE2MCAyNzEuMiAxNjAgMjI0VjI1NkMxNjAgMjU3LjYgMTYxLjQgMjU5IDE2MyAyNTlIMjQzVjM0OUgyNjlWMjg1SDM0OUMzNTAuNiAyODUgMzUyIDI4My42IDM1MiAyODJWMjI0QzM1MiAxNzEuMiAzMDguOCAxMjggMjU2IDEyOFoiIGZpbGw9IndoaXRlIi8+CjxjaXJjbGUgY3g9IjIwMyIgY3k9IjM2MyIgcj0iNTMiIGZpbGw9IndoaXRlIi8+CjxjaXJjbGUgY3g9IjMwOSIgY3k9IjM2MyIgcj0iNTMiIGZpbGw9IndoaXRlIi8+Cjwvc3ZnPg==",
+      "sizes": "512x512",
+      "type": "image/svg+xml"
+    }
+  ]
+}
